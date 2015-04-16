@@ -25,8 +25,6 @@ import com.google.gson.stream.JsonReader;
 import se.awesome.authenticator.Authenticator;
 import se.awesome.data.Quote;
 import se.awesome.service.QuotesService;
-import se.awesome.storage.KeysRepository;
-import se.awesome.storage.mysql.MySQLKeysRepository;
 import se.awesome.storage.mysql.MySQLQuotesRepository;
 import se.awesome.storage.mysql.MySQLTokensRepository;
 import se.awesome.storage.mysql.MySQLUserRepository;
@@ -38,21 +36,22 @@ public class QuotesResource {
 
 	private final MySQLQuotesRepository sqlQuotesRepository = new MySQLQuotesRepository();
 	private final MySQLUserRepository sqlUserRepository = new MySQLUserRepository();
-	private final MySQLKeysRepository sqlKeysRepository = new MySQLKeysRepository();
 	private final MySQLTokensRepository sqlTokensRepository = new MySQLTokensRepository();
 	private final QuotesService quotesService = new QuotesService(
-			sqlUserRepository, sqlQuotesRepository, sqlKeysRepository,
+			sqlUserRepository, sqlQuotesRepository,
 			sqlTokensRepository);
 	private final Authenticator authenticator = new Authenticator(quotesService);
+	private Thread thread;
+	
 
 	@GET
 	public Response readQuotes(@Context HttpHeaders headers) {
-		String serviceKey = headers.getHeaderString("service_key");
-		String token = headers.getHeaderString("auth_token");
-		String username = headers.getHeaderString("username");
+		String token = headers.getHeaderString("X-Auth-Token");
+		String username = headers.getHeaderString("X-Username");
 
-		if (authenticator.isAuthTokenValid(Integer.parseInt(serviceKey), token,
+		if (authenticator.isAuthTokenValid( token,
 				username)) {
+			System.out.println("Got in");
 
 			Iterator<Quote> quotes = quotesService.readQuotes().iterator();
 			JsonArray jsonArray = new JsonArray();
@@ -82,12 +81,11 @@ public class QuotesResource {
 
 	@POST
 	public Response createQuote(@Context HttpHeaders headers, Quote quote) {
-		String serviceKey = headers.getHeaderString("service_key");
 		String token = headers.getHeaderString("auth_token");
 		String username = headers.getHeaderString("username");
 		
 
-		if (authenticator.isAuthTokenValid(Integer.parseInt(serviceKey),
+		if (authenticator.isAuthTokenValid(
 				token, username)) {
 			quotesService.createQuote(quote);
 			return Response.status(Status.CREATED).build();

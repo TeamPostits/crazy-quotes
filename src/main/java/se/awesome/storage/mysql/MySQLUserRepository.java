@@ -6,10 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
-import se.awesome.data.Quote;
 import se.awesome.storage.UserRepository;
 
 public class MySQLUserRepository implements UserRepository{
@@ -50,31 +47,11 @@ public class MySQLUserRepository implements UserRepository{
 		return false;
 	}
 
-	@Override
-	public boolean containsKey(int key) {
-		String sql = "SELECT serviceKey FROM service_keys";
-		
-		try {
-			PreparedStatement pstmt = con.prepareStatement(sql);
-			ResultSet rs = pstmt.executeQuery();
 
-			while (rs.next()) {
-				int serviceKey = rs.getInt("serviceKey");
-				if(serviceKey == key){
-					return true;
-				}
-			}
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return false;
-	}
 
 	@Override
 	public boolean containsUser(String username, String password) {
-String sql = "SELECT username, password FROM users";
+        String sql = "SELECT username, password FROM users";
 		
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);

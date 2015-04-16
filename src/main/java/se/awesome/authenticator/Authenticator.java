@@ -13,24 +13,20 @@ public class Authenticator {
 		this.quotesService = quotesService;	
 	}
 	
-	public String login(int serviceKey, String username, String password){
-		if(quotesService.containsKey(serviceKey)){
-			if(quotesService.containsUser(serviceKey, username, password)){
+	public String login(String username, String password){
+			if(quotesService.containsUser(username, password)){
 				String authToken = UUID.randomUUID().toString();
                 quotesService.createToken(authToken, username);
                 return authToken;
 				
 			}
-		}
 		return "";
 	}
 	
-	public boolean isAuthTokenValid(int serviceKey, String token, String username){
-		if(quotesService.containsKey(serviceKey)){
+	public boolean isAuthTokenValid(String token, String username){
 			if(quotesService.containsToken(token, username)){
 				return true;
 			}
-		}
 		return false;
 	}
    

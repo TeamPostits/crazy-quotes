@@ -3,7 +3,6 @@ package se.awesome.service;
 import java.util.List;
 
 import se.awesome.data.Quote;
-import se.awesome.storage.KeysRepository;
 import se.awesome.storage.QuotesRepository;
 import se.awesome.storage.TokensRepository;
 import se.awesome.storage.UserRepository;
@@ -12,13 +11,11 @@ public class QuotesService {
 	
 	private UserRepository userRepository;
 	private QuotesRepository quotesRepository;
-	private KeysRepository keysRepository;
 	private TokensRepository tokenRepository;
 	
-	public QuotesService(UserRepository userRepository, QuotesRepository quotesRepository, KeysRepository keysRepository, TokensRepository tokensRepository){
+	public QuotesService(UserRepository userRepository, QuotesRepository quotesRepository, TokensRepository tokensRepository){
 		this.userRepository = userRepository;
 		this.quotesRepository = quotesRepository;
-		this.keysRepository = keysRepository;
 		tokenRepository = tokensRepository;
 		
 	}
@@ -27,12 +24,8 @@ public class QuotesService {
 		userRepository.login(username, password);
 	}
 	
-	public boolean containsKey(int key){
-		return userRepository.containsKey(key);
-	}
-	
-	public boolean containsUser(int key, String username, String password){
-		return keysRepository.containsUser(key, username) && userRepository.containsUser(username, password);
+	public boolean containsUser(String username, String password){
+		return userRepository.containsUser(username, password);
 	}
 	
 	public boolean createToken(String token, String username){

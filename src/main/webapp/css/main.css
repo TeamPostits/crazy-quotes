@@ -1,0 +1,87 @@
+html, body, .content {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    position: relative;
+}
+
+html, body {
+	background-color: #ddd;
+}
+
+.content {
+    width: 90%;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+}
+.content .login {
+    max-width: 400px;
+    margin: 0 auto;
+    position: relative;
+    top: 40%;
+    transform: translateY(-60%);
+}
+
+
+.content .login .login-fail-message {
+  display: none;
+}
+
+.content .quotes {
+  width: 100%;
+}
+
+.content .quotes #quotes-list {
+  width: 100%;
+  max-width: 600px;
+  display: block;
+  margin: 0 auto;
+  padding: 0;
+  position: relative;
+  
+}
+
+.quote-creator {
+  width: 100%;
+  max-width: 600px;
+  display: block;
+  margin: 0 auto;
+  position: relative;
+}
+
+.card-header {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #6d6d6d;
+
+}
+
+.login {
+/*  display: none;*/
+}
+.quotes {
+  display: none;
+}
+
+.content .quotes #quotes-list .quote-text {
+  font-style: italic;
+}
+
+.content .quotes #quotes-list .quote-created-by {
+  color: cornflowerblue;
+}
+.content .quotes #quotes-list {
+}
+.content .quotes #quotes-list {
+}
+.card {
+  list-style: none;
+  background: white;
+  display: inline-block;
+  margin: 10px auto;
+  width: 100%;
+  padding: 30px;
+  box-shadow: 0 5px 5px 0px rgba(0, 0, 0, 0.2);
+
+}
