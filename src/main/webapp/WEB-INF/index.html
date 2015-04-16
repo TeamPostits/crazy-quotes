@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="/web_secure/public/libs/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/web_secure/public/css/main.css">
+  <script src="/libs/jquery/jquery-1.11.2.min.js"></script>
+  <script src="/libs/bootstrap/css/bootstrap.min.css"></script>
+  <script src="/js/setup.js"></script>
+  <script src="/services.js"></script>
+  <script src="/js/view.js"></script>
+<!--  <script src="/web_secure/public/js/all.min.js"></script>-->
+
+</head>
+
+<body>
+  <div class="content">
+
+    <div class="login panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Login</h3>
+      </div>
+      <div class="panel-body">
+
+
+<!--
+        <div class="alert alert-danger" role="alert">
+          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          <span class="sr-only">Error:</span> Authentication failed, please login.
+        </div>
+-->
+        <div class="alert alert-danger login-fail-message" role="alert">
+          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          <span class="sr-only">Error:</span> Login failed, check username and password
+        </div>
+
+
+
+        <form id="login-form">
+          <div class="form-group">
+            <input type="text" pattern=".{3,}" placeholder="Username" required="required" class="form-control" id="usr" name="username">
+          </div>
+          <div class="form-group">
+            <input type="password" pattern=".{8,}" placeholder="Password" required="required" class="form-control" id="psw" name="password">
+          </div>
+          <div class="checkbox">
+            <label>
+              <input id="new" name="new" type="checkbox" value="">Create new account</label>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary pull-right" type="submit">Login</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="quotes">
+      <div class="quote-creator">
+        <div class="card">
+          <p class="card-header">Add new quote</p>
+          <form id="quote-form">
+            <div class="form-group">
+              <input type="text" pattern=".{2,}" placeholder="Quote" required="required" class="form-control" id="usr" name="username">
+            </div>
+            <div class="row">
+              <div class="form-group col-xs-8">
+                <input type="text" pattern=".{1,}" placeholder="Author" required="required" class="form-control" id="usr" name="username">
+              </div>
+              <div class="form-group col-xs-4">
+                <input type="number" pattern=".{2}|.{4}" placeholder="Year" required="required" class="form-control" id="usr" name="username">
+              </div>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary pull-right" type="submit">Add</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <ul id="quotes-list">
+
+      </ul>
+    </div>
+  </div>
+</body>
+
+</html>

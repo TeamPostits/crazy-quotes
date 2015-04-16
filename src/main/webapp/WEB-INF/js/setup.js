@@ -1,0 +1,4 @@
+var CrazyQuotes = {
+    services: {},
+    view: {}
+}
