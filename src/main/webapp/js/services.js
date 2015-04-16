@@ -5,7 +5,7 @@ CrazyQuotes.services = (function () {
   var basePath = "./crazy";
   var token, username;
 
-  var requestSuccess = function (data, textStatus, requst) {
+  var requestSuccess = function (data, textStatus, request) {
     token = request.getResponseHeader(HEADER_TOKEN_NAME);
   }
 
@@ -37,10 +37,10 @@ CrazyQuotes.services = (function () {
       return request({
         url: basePath + '/login',
         type: 'post',
-        data: {
+        data: JSON.stringify({
           username: data.username,
           password: data.password
-        },
+        }),
         dataType: 'json',
         contentType: 'application/json'
       }).done(function () {
@@ -54,7 +54,7 @@ CrazyQuotes.services = (function () {
       return $.ajax({
         url: basePath + '/quotes',
         type: 'post',
-        data: quote,
+        data: JSON.stringify(quote),
         headers: headers,
         dataType: 'json',
         contentType: 'application/json'

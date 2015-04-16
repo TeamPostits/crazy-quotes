@@ -11,6 +11,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import se.awesome.authenticator.Authenticator;
+import se.awesome.data.LoginData;
 import se.awesome.service.QuotesService;
 import se.awesome.storage.mysql.MySQLQuotesRepository;
 import se.awesome.storage.mysql.MySQLTokensRepository;
@@ -27,12 +28,12 @@ public class UsersResource {
 	private final Authenticator authenticator = new Authenticator(quotesService);
 
 	@POST
-	//@Consumes({ "application/xml", "application/json" })
-	public Response login(@Context HttpHeaders headers,String body) {
+	@Consumes({ "application/xml", "application/json" })
+	public Response login(@Context HttpHeaders headers, LoginData data) {
 		
-		System.out.println(body);
+		System.out.println(data.username);
 		
-			String dbToken = authenticator.login("isabella", "admin2");
+			String dbToken = authenticator.login(data.username, data.username);
 
 			if (!dbToken.equals("")) {
 				return Response.status(Status.OK).header("content-type", "application/json").header("X-Auth-Token", dbToken).entity("null").build();

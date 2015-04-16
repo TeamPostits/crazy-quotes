@@ -44,7 +44,6 @@ CrazyQuotes.view = (function () {
   }
 
   var getFormAsObject = function (valuesArray) {
-    var valuesArray = $(this).serializeArray();
     var object = {};
     var i;
     for (i = 0; i < valuesArray.length; i = i + 1) {
