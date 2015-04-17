@@ -21,12 +21,12 @@ CrazyQuotes.services = (function () {
   return {
     createAccount: function (data) {
       return request({
-        url: basePath + '/user',
+        url: basePath + '/user/create',
         type: 'post',
-        data: {
+        data: JSON.stringify({
           username: data.username,
           password: data.password
-        },
+        }),
         dataType: 'json',
         contentType: 'application/json'
       }).done(function () {
@@ -35,7 +35,7 @@ CrazyQuotes.services = (function () {
     },
     login: function (data) {
       return request({
-        url: basePath + '/login',
+        url: basePath + '/user/login',
         type: 'post',
         data: JSON.stringify({
           username: data.username,
@@ -51,10 +51,10 @@ CrazyQuotes.services = (function () {
       var headers = {};
       headers[HEADER_TOKEN_NAME] = token;
       headers[HEADER_USERNAME_NAME] = username;
-      return $.ajax({
+      return request({
         url: basePath + '/quotes',
         type: 'post',
-        data: JSON.stringify(quote),
+        data: quote,
         headers: headers,
         dataType: 'json',
         contentType: 'application/json'

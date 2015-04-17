@@ -55,7 +55,8 @@ CrazyQuotes.view = (function () {
   var login = function (event) {
     event.preventDefault();
     var object = getFormAsObject($(this).serializeArray());
-    if ($('#new', this).checked) {
+    if ($('#new')[0].checked) {
+    	window.console.log('creating');
       CrazyQuotes.services.createAccount(object).done(function () {
         $('.login-fail-message').hide();
         loadQuotes();
@@ -63,6 +64,7 @@ CrazyQuotes.view = (function () {
         showLoginError();
       });
     } else {
+    	window.console.log('login in');
       CrazyQuotes.services.login(object).done(function () {
         $('.login-fail-message').hide();
         loadQuotes();

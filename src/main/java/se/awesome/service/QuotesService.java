@@ -20,12 +20,20 @@ public class QuotesService {
 		
 	}
 	
-	public void login(String username, String password){
-		userRepository.login(username, password);
+	public boolean createUser(String username, String password, String salt){
+		return userRepository.createUser(username, password, salt);
 	}
 	
 	public boolean containsUser(String username, String password){
 		return userRepository.containsUser(username, password);
+	}
+	
+	public String getSalt(String username){
+		return userRepository.getSalt(username);
+	}
+	
+	public String getPassword(String username){
+		return userRepository.getPassword(username);
 	}
 	
 	public boolean createToken(String token, String username){
@@ -34,10 +42,6 @@ public class QuotesService {
 	
 	public boolean containsToken(String token, String username){
 		return tokenRepository.containsToken(token, username);
-	}
-	
-	public boolean isLoggedIn(String username){
-		return tokenRepository.isLoggedIn(username);
 	}
 	
 	public void createQuote(Quote quote){

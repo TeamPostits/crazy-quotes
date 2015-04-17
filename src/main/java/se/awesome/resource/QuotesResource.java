@@ -34,13 +34,13 @@ import se.awesome.storage.mysql.MySQLUserRepository;
 @Path("/quotes")
 public class QuotesResource {
 
-	private final MySQLQuotesRepository sqlQuotesRepository = new MySQLQuotesRepository();
-	private final MySQLUserRepository sqlUserRepository = new MySQLUserRepository();
-	private final MySQLTokensRepository sqlTokensRepository = new MySQLTokensRepository();
-	private final QuotesService quotesService = new QuotesService(
+	private static final MySQLQuotesRepository sqlQuotesRepository = new MySQLQuotesRepository();
+	private static final MySQLUserRepository sqlUserRepository = new MySQLUserRepository();
+	private static final MySQLTokensRepository sqlTokensRepository = new MySQLTokensRepository();
+	private static final QuotesService quotesService = new QuotesService(
 			sqlUserRepository, sqlQuotesRepository,
 			sqlTokensRepository);
-	private final Authenticator authenticator = new Authenticator(quotesService);
+	private static final Authenticator authenticator = new Authenticator(quotesService);
 	private Thread thread;
 	
 
@@ -51,7 +51,6 @@ public class QuotesResource {
 
 		if (authenticator.isAuthTokenValid( token,
 				username)) {
-			System.out.println("Got in");
 
 			Iterator<Quote> quotes = quotesService.readQuotes().iterator();
 			JsonArray jsonArray = new JsonArray();
@@ -72,30 +71,19 @@ public class QuotesResource {
 		return Response.status(Status.UNAUTHORIZED).build();
 	}
 
-	/*
-	 * return Response.status(200).header("Access-Control-Allow-Origin", "*")
-	 * .header("Access-Control-Allow-Methods",
-	 * "GET, POST, PUT, DELETE, OPTIONS, HEAD") .entity(listOfInput.toString())
-	 * .build();
-	 */
-
 	@POST
 	public Response createQuote(@Context HttpHeaders headers, Quote quote) {
-		String token = headers.getHeaderString("auth_token");
-		String username = headers.getHeaderString("username");
-		
+		String token = headers.getHeaderString("X-Auth-Token");
+		String username = headers.getHeaderString("X-Username");
+		System.out.println("Entered");
 
 		if (authenticator.isAuthTokenValid(
 				token, username)) {
 			quotesService.createQuote(quote);
-			return Response.status(Status.CREATED).build();
+			System.out.println("got this far");
+			return Response.status(Status.CREATED).header("X-Auth-Token", token).build();
 		}
 		return Response.status(Status.UNAUTHORIZED).build();
 	}
 
-	/*
-	 * return Response.status(201).header("Access-Control-Allow-Origin", "*")
-	 * .header("Access-Control-Allow-Methods",
-	 * "GET, POST, PUT, DELETE, OPTIONS, HEAD") .build();
-	 */
 }

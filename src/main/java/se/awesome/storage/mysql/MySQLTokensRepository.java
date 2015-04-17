@@ -83,26 +83,5 @@ public class MySQLTokensRepository implements TokensRepository{
 		}
 		return false;
 	}
-	
-	public boolean isLoggedIn(String username){
-		String sql = "SELECT token FROM tokens WHERE username = ?";
-
-		try {
-			PreparedStatement pstmt = con.prepareStatement(sql,
-					Statement.RETURN_GENERATED_KEYS);
-			pstmt.setString(1, username);
-
-			ResultSet rs = pstmt.executeQuery();
-			
-			if(rs.next()){
-				return true;
-			}
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return false;
-	}
 
 }

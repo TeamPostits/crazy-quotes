@@ -2,10 +2,10 @@ package se.awesome.data;
 
 public class Quote {
 	
-	private String text;
-	private String author;
-	private int year;
-	private String createdBy;
+	public String text;
+	public String author;
+	public int year;
+	public String createdBy;
 	
 	public Quote(String text, String author, int year, String createdBy){
 		this.text = text;
